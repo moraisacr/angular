@@ -134,7 +134,7 @@ const initializeNavigationAdapter = () => {
     if (e instanceof NavigationStart) {
       intercept = true;
 
-      if (typeof window !== 'undefined' && window?.history?.replaceState) {
+      if (window?.history?.replaceState) {
         const href = window.location.href;
         window.history.replaceState(window.history.state, '', href);
       }
