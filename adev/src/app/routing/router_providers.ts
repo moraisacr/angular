@@ -131,17 +131,21 @@ const initializeNavigationAdapter = () => {
     if (currentNavigation?.trigger === 'popstate' || currentNavigation?.extras.replaceUrl) {
       return;
     }
+
     if (e instanceof NavigationStart) {
       intercept = true;
 
-      if (window?.history?.replaceState) {
-        const href = window.location.href;
-        window.history.replaceState(window.history.state, '', href);
+      const hash = window.location.hash;
+
+      if (!hash.includes(':~:text=')) {
+        if (window?.history?.replaceState) {
+          const href = window.location.href;
+          window.history.replaceState(window.history.state, '', href);
+        }
       }
 
       intercept = false;
     } else if (
-      // viewtransition happens before NavigateEnd
       e === 'viewtransition' ||
       e instanceof NavigationCancel ||
       e instanceof NavigationError
