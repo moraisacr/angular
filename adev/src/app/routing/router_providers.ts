@@ -135,13 +135,10 @@ const initializeNavigationAdapter = () => {
     if (e instanceof NavigationStart) {
       intercept = true;
 
-      const hash = window.location.hash;
+      const href = window.location.href;
 
-      if (!hash.includes(':~:text=')) {
-        if (window?.history?.replaceState) {
-          const href = window.location.href;
-          window.history.replaceState(window.history.state, '', href);
-        }
+      if (!href.includes(':~:text=') && window?.history?.replaceState) {
+        window.history.replaceState(window.history.state, '', href);
       }
 
       intercept = false;
